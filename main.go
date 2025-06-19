@@ -20,7 +20,7 @@ func initRedis() {
 		DB:       0, // Default DB
 	})
 
-	// Testar conexão com Redis
+	// Teste de conexão com Redis
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
