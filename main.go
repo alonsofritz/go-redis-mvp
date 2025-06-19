@@ -14,12 +14,10 @@ import (
 var rdb *redis.Client
 
 func initRedis() {
-	// Configuração do cliente Redis
-	// Usamos o nome do serviço do compose ("redis") como host
 	rdb = redis.NewClient(&redis.Options{
 		Addr:     "redis:6379", // Nome do serviço no docker-compose
-		Password: "",           // sem senha
-		DB:       0,            // banco padrão
+		Password: "",
+		DB:       0, // Default DB
 	})
 
 	// Testar conexão com Redis
@@ -36,7 +34,6 @@ func initRedis() {
 func incrementHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := context.Background()
 
-	// Incrementar contador no Redis
 	counter, err := rdb.Incr(ctx, "counter").Result()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
